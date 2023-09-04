@@ -24,10 +24,10 @@ def address():
 def reference():
     ref_year = str(date.today().year)[2:]
     if sys.argv[2] == "committee":
-        return "REF:EC/LCLP/COM" + ref_year + "/0.."
+        return "REF:EC/LCLP/COM/" + ref_year + "/0.."
     else:
         ref_year = str(date.today().year)[2:]
-        return "EC/LCLP/EMO" + ref_year + "/0.."
+        return "EC/LCLP/EMO/" + ref_year + "/0.."
 
 
 def draft():

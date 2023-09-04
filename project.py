@@ -27,7 +27,7 @@ def reference():
         return "REF:EC/LCLP/COM" + ref_year + "/0.."
     else:
         ref_year = str(date.today().year)[2:]
-        return "EC/LCLP/EMO" + ref_year + "/0..."
+        return "EC/LCLP/EMO" + ref_year + "/0.."
 
 
 def draft():

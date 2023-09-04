@@ -4,7 +4,7 @@ import docx
 
 
 def main():
-    if len(sys.argv) == 2:
+    if len(sys.argv) == 3:
         create_document()
     else:
         sys.exit(

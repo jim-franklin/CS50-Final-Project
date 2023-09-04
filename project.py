@@ -20,9 +20,13 @@ def main():
 
 
 def create_document():
-    doc_name = f"{sys.argv[1]} {sys.argv[2]} {sys.argv[3]}.docx"
+    doc_name = f"{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}.docx"
     doc = docx.Document()
     doc.add_paragraph(draft())
+    doc.add_paragraph(reference())
+    doc.add_paragraph(date_doc())
+    doc.add_paragraph(address())
+    doc.add_paragraph(greeting())
     doc.save(doc_name)
 
 
@@ -36,8 +40,8 @@ def address():
 
 def reference():
     ref_year = str(date.today().year)[2:]
-    if sys.argv[2] == "committee":
-        return "REF:EC/LCLP/COM/" + ref_year + "/0.."
+    if sys.argv[3] == "committee":
+        return "REF: EC/LCLP/COM/" + ref_year + "/0.."
     else:
         ref_year = str(date.today().year)[2:]
         return "EC/LCLP/EMO/" + ref_year + "/0.."

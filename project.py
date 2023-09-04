@@ -27,6 +27,8 @@ def create_document():
     doc.add_paragraph(date_doc())
     doc.add_paragraph(address())
     doc.add_paragraph(greeting())
+    doc.add_paragraph(title())
+    doc.add_paragraph(complimentary_close())
     doc.save(doc_name)
 
 
@@ -60,7 +62,8 @@ def title():
 
 
 def complimentary_close():
-    return "Yours faithfully,\n\nIng.Oscar Amonoo-Neizer\n(Executive Secretary)"
+    body_space = "\n" * 25
+    return f"{body_space}Yours faithfully,\n\n\nIng.Oscar Amonoo-Neizer\n(Executive Secretary)"
 
 
 if __name__ == "__main__":

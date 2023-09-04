@@ -4,7 +4,7 @@ import docx
 
 
 def main():
-    if len(sys.argv) == 1:
+    if len(sys.argv) == 2:
         create_document()
     else:
         sys.exit(
@@ -26,7 +26,7 @@ def date_doc():
 
 
 def address():
-    ...
+    return "The Managing Director\nVolta River Authority\nElectro-Volta House\nAccra"
 
 
 def reference():

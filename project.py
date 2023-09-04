@@ -1,7 +1,8 @@
 import os
 import sys
 from datetime import date
-import docx
+from docx import Document
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 
 
 def main():
@@ -21,13 +22,27 @@ def main():
 
 def create_document():
     doc_name = f"{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}.docx"
-    doc = docx.Document()
-    doc.add_paragraph(draft())
+    doc = Document()
+
+    para_draft = doc.add_paragraph(draft())
+    para_draft.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    doc.paragraphs[0].runs[0].bold = True
+
     doc.add_paragraph(reference())
-    doc.add_paragraph(date_doc())
+    doc.paragraphs[1].runs[0].bold = True
+
+    para_date = doc.add_paragraph(date_doc())
+    para_date.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
+
     doc.add_paragraph(address())
+    doc.paragraphs[3].runs[0].bold = True
+
     doc.add_paragraph(greeting())
+
     doc.add_paragraph(title())
+    doc.paragraphs[5].runs[0].underline = True
+    doc.paragraphs[5].runs[0].bold = True
+
     doc.add_paragraph(complimentary_close())
     doc.save(doc_name)
 

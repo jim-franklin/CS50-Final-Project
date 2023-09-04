@@ -1,12 +1,20 @@
 import sys
 from datetime import date
+import docx
 
 
 def main():
     if len(sys.argv) == 1:
         create_document()
     else:
-        sys.exit("Usage")
+        sys.exit(
+            """\
+        project.py - Generate a Word document that serves as a template for creating formal letters.
+        
+        Usage: py.exe project.py letter <company> - Generate template with company's address.
+        py.exe project.py letter Committee - Generate template with standard committee address.
+        """
+        )
 
 
 def create_document():
@@ -31,7 +39,7 @@ def reference():
 
 
 def draft():
-    return "Draft"
+    return "DRAFT"
 
 
 def greeting():
@@ -43,7 +51,7 @@ def title():
 
 
 def complimentary_close():
-    return "Yours faithfully,\n\n" "Ing.Oscar Amonoo-Neizer\n" "(Executive Secretary)"
+    return "Yours faithfully,\n\nIng.Oscar Amonoo-Neizer\n(Executive Secretary)"
 
 
 if __name__ == "__main__":

@@ -1,6 +1,9 @@
 import os
+import shelve
 import sys
 from datetime import date
+
+import pyperclip
 from docx import Document
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.enum.text import WD_LINE_SPACING
@@ -10,11 +13,20 @@ from docx.shared import Inches
 
 def main():
     os.chdir(r"C:\Users\HP\PycharmProjects\CS50-Final-Project")
-    letter = ["letter", "let"]
+    letters = ["letter", "let"]
+    lists = ["list", "ls"]
+
     if len(sys.argv) == 4:
-        if sys.argv[1].lower() not in letter:
+        if sys.argv[1].lower() not in letters:
             raise TypeError(f"\n\n**Did you mean to letter to {sys.argv[3]}?**\n\n")
         create_document()
+
+    elif len(sys.argv) == 2 and sys.argv[1].lower() == "save":
+        save_address()
+
+    elif len(sys.argv) == 2 and sys.argv[1].lower() in lists:
+        list_all_address()
+
     else:
         sys.exit(
             """\
@@ -29,7 +41,7 @@ def main():
 def create_document():
     doc = Document()
 
-    # Set custom document style, font, font size and alignment
+    # Set custom style, font, font size and alignment for entire document
     base_style = doc.styles["Normal"]
     base_style.font.name = "Times New Roman"
     base_style.font.size = Pt(12)
@@ -95,6 +107,7 @@ def create_document():
     # Save Document
     document_name = f"{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}.docx"
     doc.save(document_name)
+    print(document_name, "has been created...\n")
 
 
 def date_doc():
@@ -104,7 +117,8 @@ def date_doc():
 def address():
     if sys.argv[3].lower() == "committee":
         return "CONFIDENTIAL\n\nTO THE COMMITTEE MEMBERS\nOF THE LOCAL CONTENT AND LOCAL PARTICIPATION\nCOMMITTEE"
-    return "The Managing Director\nVolta River Authority\nElectro-Volta House\nAccra"
+    else:
+        company_address()
 
 
 def reference():
@@ -129,7 +143,7 @@ def title():
         return (
             "INVITATION TO MEETING FOR LOCAL CONTENT AND\nLOCAL PARTICIPATION COMMITTEE"
         )
-    return "TITLE:"
+    return "ENTER TITLE HERE:"
 
 
 def body():
@@ -152,6 +166,32 @@ def valediction():
 
 def writer_name():
     return "Ing. Oscar Amonoo-Neizer\n(Executive Secretary)"
+
+
+def save_address():
+    with shelve.open("data_base") as sfile:
+        name_of_company = input(
+            "Enter the name of the company whose address you want to save: "
+        )
+        sfile[name_of_company] = input(
+            "Enter the company's address:\n(e.g. The Managing Director, Volta River Authority, Electro-Volta House, "
+            "Accra)"
+        )
+        if not sfile[name_of_company]:
+            sfile[name_of_company] = pyperclip.paste()
+
+
+def list_all_address():
+    with shelve.open("data_base") as sfile:
+        print(list(sfile.keys()))
+
+
+def company_address():
+    with shelve.open("data_base") as sfile:
+        if sys.argv[3] in sfile:
+            return sfile[sys.argv[3]]
+        else:
+            save_address()
 
 
 if __name__ == "__main__":

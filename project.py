@@ -16,7 +16,11 @@ def main():
     letters = ["letter", "let"]
     lists = ["list", "ls"]
 
-    if 3 < len(sys.argv) < 5 and sys.argv[1].lower() in letters and sys.argv[2].lower() == "to":
+    if (
+        3 < len(sys.argv) < 5
+        and sys.argv[1].lower() in letters
+        and sys.argv[2].lower() == "to"
+    ):
         create_document()
 
     elif len(sys.argv) == 2 and sys.argv[1].lower() == "save":
@@ -301,9 +305,8 @@ def list_all_address():
         list_of_dicts = [
             {key: value} for key, value in zip(list(sfile.keys()), list(sfile.values()))
         ]
-    for i, d in enumerate(list_of_dicts, 1):
-        for key in d.keys():
-            print(i, key, end="\n\n")
+        for _, key in enumerate(sorted(sfile.keys()), 1):
+            print(f"{_}. {key}\n")
 
 
 if __name__ == "__main__":

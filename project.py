@@ -16,16 +16,14 @@ def main():
     letters = ["letter", "let"]
     lists = ["list", "ls"]
 
-    if len(sys.argv) == 4:
-        if sys.argv[1].lower() not in letters:
-            raise TypeError(f"\n\n\tDid you mean to letter to {sys.argv[3]}?\n\n")
+    if 3 < len(sys.argv) < 5 and sys.argv[1].lower() in letters and sys.argv[2].lower() == "to":
         create_document()
 
     elif len(sys.argv) == 2 and sys.argv[1].lower() == "save":
-        save_address()
+        print("\n", save_address(), "\n", sep="")
 
     elif len(sys.argv) == 2 and sys.argv[1].lower() in lists:
-        print(list_all_address())
+        list_all_address()
 
     else:
         sys.exit(
@@ -39,6 +37,12 @@ def main():
 
 
 def create_document():
+    """
+    This function calls all the functions allocated to the various components of a formal letter
+    and creates a word template with customised styles and font for each type of letter
+
+    :return: name_of_document.docx
+    """
     doc = Document()
 
     # Set custom style, font, font size and alignment for entire document
@@ -105,23 +109,28 @@ def create_document():
     p_writer_name.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
 
     # Save Document
-    document_name = f"{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}.docx"
-    doc.save(document_name)
-    print("\n\t" + document_name + " has been created...\n")
+    document_of_name = f"{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}.docx"
+    doc.save(document_of_name)
+    print("\n\t" + document_of_name + " has been created...\n")
 
 
 def date_doc():
+    """
+    This function returns the current date of letter
+
+    :return: A sting of the date of letter
+    :rtype: str
+    """
     return date.today().strftime("%B %#d, %Y")
 
 
-def address():
-    if sys.argv[3].lower() == "committee":
-        return "CONFIDENTIAL\n\nTO THE COMMITTEE MEMBERS\nOF THE LOCAL CONTENT AND LOCAL PARTICIPATION\nCOMMITTEE"
-    else:
-        return company_address()
-
-
 def reference():
+    """
+    This function returns the standard reference format for the committee or a company
+
+    :return: A sting of the reference format of the letter
+    :rtype: str
+    """
     ref_year = str(date.today().year)[2:]
     if sys.argv[3].lower() == "committee":
         return "REF: EC/LCLP/COM/" + ref_year + "/0.."
@@ -130,15 +139,43 @@ def reference():
         return "EC/LCLP/EMO/" + ref_year + "/0.."
 
 
+def address():
+    """
+    This function returns the standard address for the committee
+    or the specific address of a company by calling `company_address()`
+
+    :return: A string of the address of the letter
+    :rtype: str
+    """
+    if sys.argv[3].lower() == "committee":
+        return "CONFIDENTIAL\n\nTO THE COMMITTEE MEMBERS\nOF THE LOCAL CONTENT AND LOCAL PARTICIPATION\nCOMMITTEE"
+    return company_address()
+
+
 def draft():
+    """
+    :return: A string containing `DRAFT`
+    :rtype: str
+    """
     return "DRAFT"
 
 
 def greeting():
+    """
+    :return: A sting containing `Dear Sir/Madam,`
+    :rtype: str
+    """
     return "Dear Sir/Madam,"
 
 
 def title():
+    """
+    This function returns standard title for committee meetings
+    or `ENTER TITLE HERE` which indicates where the yet to be determined title will be typed.
+
+    :return: A string of the title of the letter
+    :rtype: str
+    """
     if sys.argv[3].lower() == "committee":
         return (
             "INVITATION TO MEETING FOR LOCAL CONTENT AND\nLOCAL PARTICIPATION COMMITTEE"
@@ -147,60 +184,126 @@ def title():
 
 
 def body():
+    """
+    This function asks for and returns the `date` and `time` of meeting if letter is to the committee
+    or returns `...` if letters to companies
+
+    :return: A sting of the body of the letter
+    :rtype: str
+    """
     if sys.argv[3].lower() == "committee":
-        date_of_meeting = input(
-            "Date of the meeting (e.g. Tuesday, March  7, 2023 and Wednesday, March 8 2023): "
+        date_of_meeting = (
+            input(
+                "Date of the meeting (e.g. Tuesday, March  7, 2023 and Wednesday, March 8 2023): "
+            )
+            .title()
+            .strip()
         )
-        time_of_meeting = input("Time of the meeting (e.g. 10:00 am): ")
+        time_of_meeting = input("Time of the meeting (e.g. 10:00 am): ").lower().strip()
         return (
             f"Members are kindly invited to a virtual meeting of the Local Content and Local Participation "
-            f"Committee on {date_of_meeting}, at {time_of_meeting}.\nThe agenda for the meeting is as follows:\n\t1. "
+            f"Committee on {date_of_meeting}, at {time_of_meeting}."
+            f"\nThe agenda for the meeting is as follows:\n\t1. "
         )
     return "..."
 
 
 def valediction():
+    """
+    This function returns the complimentary close or valediction
+    and separates it from the body of the letter with whitespaces
+
+    :return: A string of valediction of the letter
+    :rtype: str
+    """
     top_space = "\n" * 10
     return top_space + "Yours faithfully,\n"
 
 
 def writer_name():
+    """
+    :return: A string of the writer's name and position
+    :rtype: str
+    """
     return "Ing. Oscar Amonoo-Neizer\n(Executive Secretary)"
 
 
 def save_address():
-    sfile = shelve.open("data_base")
-    name_of_company = input(
-        "Enter the name of the company whose address you want to save: "
-    ).lower().strip()
-    address_of_company = input(
-        "Address of company (e.g. The Managing Director, Volta River Authority, Electro-Volta House, "
-        "Accra)\nEnter address:"
-    ).title().strip()
-    if not address_of_company:
-        address_of_company = paste()
-        sfile[name_of_company] = address_of_company.replace("\r", "")
-        address_of_company = sfile[name_of_company]
-    else:
-        sfile[name_of_company] = address_of_company.replace(", ", "\n")
-        address_of_company = sfile[name_of_company]
-    sfile.close()
+    """
+    This function returns ask the `name` and `address` of the company when called.
+    See `company_address` for further clarification.
+
+    If the input of `name_of_company` is empty, the program will raise an error
+    (You must type the name of company)
+
+    If the input of `address_of_company` is empty, the address will be taken from
+    the first item on the clipboard otherwise, the address with have to be typed
+    manually in the format
+    `(Position of recipient, Company name, House/Building/Flat number, Street, City)`
+
+    :rtype: str
+    """
+    with shelve.open("data_base", writeback=True) as sfile:
+        if len(sys.argv) < 3:
+            name_of_company = (
+                input("Enter the name of the company whose address you want to save: ")
+                .lower()
+                .strip()
+            )
+            if not name_of_company:
+                raise ValueError("Name of company cannot be empty. Please try again.")
+        else:
+            name_of_company = " ".join(sys.argv[3:])
+        address_of_company = (
+            input(
+                "\nAddress of company (e.g. The Managing Director, Volta River Authority, Electro-Volta House, "
+                "Accra)\nEnter address: "
+            )
+            .title()
+            .strip()
+        )
+        if not address_of_company:
+            address_of_company = paste()
+            sfile[name_of_company] = address_of_company.replace("\r", "")
+        else:
+            sfile[name_of_company] = address_of_company.replace(", ", "\n")
+            address_of_company = sfile[name_of_company]
+    print(f"\nAddress of {name_of_company} has been saved.")
     return address_of_company
 
 
-def list_all_address():
-    with shelve.open("data_base") as sfile:
-        return list(sfile.keys())
-
-
 def company_address():
-    vfile = shelve.open("data_base")
-    if sys.argv[3] in vfile:
-        v = vfile[sys.argv[3]]
-        vfile.close()
-        return v
-    else:
-        return save_address()
+    """
+    This function returns the address of the company passed in the command-line `(sys.argv[3])`
+    or calls the `save_address` if the company name cannot be found in the `database`
+
+    :rtype: str
+    """
+    with shelve.open("data_base") as sfile:
+        company_name = " ".join(sys.argv[3:]).lower()
+
+        if company_name in sfile:
+            return sfile[company_name]
+    print(
+        f"Address of {company_name} cannot be found. Thus, follow the next steps to add the address to the database..."
+    )
+    return save_address()
+
+
+def list_all_address():
+    """
+    This function returns all company names in the `database`
+
+    :return: # . Company name
+    :rtype: str
+    """
+    with shelve.open("data_base") as sfile:
+        list_of_dicts = [
+            {key: value} for key, value in zip(list(sfile.keys()), list(sfile.values()))
+        ]
+    for i, d in enumerate(list_of_dicts, 1):
+        for key in d.keys():
+            print(i, key, end="\n\n")
 
 
 if __name__ == "__main__":

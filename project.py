@@ -12,6 +12,7 @@ from docx.shared import Inches
 
 
 def main():
+
     os.chdir(r"C:\Users\HP\PycharmProjects\CS50-Final-Project")
     letters = ["letter", "let"]
     lists = ["list", "ls"]
@@ -32,11 +33,20 @@ def main():
     else:
         sys.exit(
             """\
-        project.py - Generate a Word document that serves as a template for creating formal letters.
-        
-        Usage: py.exe project.py letter to <company> - Generate template with company's address.
-        py.exe project.py letter to committee - Generate template with standard committee address.
-        """
+    project.py - Create a template for a Word document to write formal letters 
+    
+    Usage:  python project.py letter to <company>
+            >> Create a template for a Word document with the <company> address.
+            
+            python project.py letter to committee
+            >> Create a template for a Word document with the general address of the Committee.
+            
+            python project.py save
+            >> Deliberately store the address of a specific company in the database
+            
+            python project.py list
+            >> List all company names in the database in alphabetical order
+            """
         )
 
 
@@ -115,7 +125,9 @@ def create_document():
     # Save Document
     number = 1
     while True:
-        doc_name = f"{sys.argv[1]}_{sys.argv[2]}_{'_'.join(sys.argv[3:])}_{str(number)}.docx"
+        doc_name = (
+            f"{sys.argv[1]}_{sys.argv[2]}_{'_'.join(sys.argv[3:])}_{str(number)}.docx"
+        )
         if not os.path.exists(doc_name):
             break
         number += 1

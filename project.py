@@ -138,9 +138,8 @@ def reference():
     ref_year = str(date.today().year)[2:]
     if sys.argv[3].lower() == "committee":
         return "REF: EC/LCLP/COM/" + ref_year + "/0.."
-    else:
-        ref_year = str(date.today().year)[2:]
-        return "EC/LCLP/EMO/" + ref_year + "/0.."
+    ref_year = str(date.today().year)[2:]
+    return "EC/LCLP/EMO/" + ref_year + "/0.."
 
 
 def address():
@@ -152,7 +151,11 @@ def address():
     :rtype: str
     """
     if sys.argv[3].lower() == "committee":
-        return "CONFIDENTIAL\n\nTO THE COMMITTEE MEMBERS\nOF THE LOCAL CONTENT AND LOCAL PARTICIPATION\nCOMMITTEE"
+        return (
+            "CONFIDENTIAL\n\n"
+            "TO THE COMMITTEE MEMBERS\n"
+            "OF THE LOCAL CONTENT AND LOCAL PARTICIPATION\nCOMMITTEE"
+        )
     return company_address()
 
 
@@ -189,8 +192,8 @@ def title():
 
 def body():
     """
-    This function asks for and returns the `date` and `time` of meeting if letter is to the committee
-    or returns `...` if letters to companies
+    This function asks for and returns the `date` and `time` of meeting
+    if letter is to the committee or returns `...` if letters to companies
 
     :return: A sting of the body of the letter
     :rtype: str
@@ -198,15 +201,17 @@ def body():
     if sys.argv[3].lower() == "committee":
         date_of_meeting = (
             input(
-                "Date of the meeting (e.g. Tuesday, March  7, 2023 and Wednesday, March 8 2023): "
+                "Date of the meeting "
+                "(e.g. Tuesday, March  7, 2023 and Wednesday, March 8 2023): "
             )
             .title()
             .strip()
         )
         time_of_meeting = input("Time of the meeting (e.g. 10:00 am): ").lower().strip()
         return (
-            f"Members are kindly invited to a virtual meeting of the Local Content and Local Participation "
-            f"Committee on {date_of_meeting}, at {time_of_meeting}."
+            f"Members are kindly invited to a virtual meeting of the "
+            f"Local Content and Local Participation Committee on "
+            f"{date_of_meeting}, at {time_of_meeting}."
             f"\nThe agenda for the meeting is as follows:\n\t1. "
         )
     return "..."
@@ -260,8 +265,10 @@ def save_address():
             name_of_company = " ".join(sys.argv[3:])
         address_of_company = (
             input(
-                "\nAddress of company (e.g. The Managing Director, Volta River Authority, Electro-Volta House, "
-                "Accra)\nEnter address: "
+                "\nAddress of company (e.g. The Managing Director, Volta River Authority, "
+                "Electro-Volta House, "
+                "Accra)"
+                "\nEnter address: "
             )
             .title()
             .strip()
@@ -289,7 +296,8 @@ def company_address():
         if company_name in sfile:
             return sfile[company_name]
     print(
-        f"Address of {company_name} cannot be found. Thus, follow the next steps to add the address to the database..."
+        f"Address of {company_name} cannot be found. "
+        f"Thus, follow the next steps to add the address to the database..."
     )
     return save_address()
 
@@ -306,8 +314,11 @@ def list_all_address():
         list_of_dicts = [
             {key: value} for key, value in zip(list(sfile.keys()), list(sfile.values()))
         ]
-        for _, key in enumerate(sorted(sfile.keys()), 1):
-            print(f"{_}. {key}\n")
+        if not list_of_dicts:
+            print("The database is empty!\n")
+        else:
+            for _, key in enumerate(sorted(sfile.keys()), 1):
+                print(f"{_}. {key}\n")
 
 
 if __name__ == "__main__":

@@ -91,14 +91,14 @@ def create_document():
     p_title.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
     # Add body of letter
-    # committee letter
+    # for committee
     if sys.argv[3].lower() == "committee":
         string = body().split("\n")
         for line in string:
             p_body = doc.add_paragraph(line)
             p_body.paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
 
-    # any other letter
+    # for any other letter
     else:
         p_body = doc.add_paragraph(body())
         p_body.paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
@@ -119,6 +119,7 @@ def create_document():
         if not os.path.exists(doc_name):
             break
         number += 1
+
     doc.save(doc_name)
     print("\n\t" + doc_name + " has been created...\n")
 
@@ -143,6 +144,7 @@ def reference():
     ref_year = str(date.today().year)[2:]
     if sys.argv[3].lower() == "committee":
         return "REF: EC/LCLP/COM/" + ref_year + "/0.."
+
     ref_year = str(date.today().year)[2:]
     return "EC/LCLP/EMO/" + ref_year + "/0.."
 
@@ -230,8 +232,7 @@ def valediction():
     :return: A string of valediction of the letter
     :rtype: str
     """
-    top_space = "\n" * 10
-    return top_space + "Yours faithfully,\n"
+    return ("\n" * 10) + "Yours faithfully,\n"
 
 
 def writer_name():
@@ -282,6 +283,7 @@ def save_address():
         else:
             sfile[name_of_company] = address_of_company.replace(", ", "\n")
         address_of_company = sfile[name_of_company]
+
     print(f"\nAddress of {name_of_company} has been saved.")
     return address_of_company
 
@@ -298,6 +300,7 @@ def company_address():
 
         if company_name in sfile:
             return sfile[company_name]
+
     print(
         f"Address of {company_name} cannot be found. "
         f"Thus, follow the next steps to add the address to the database..."
@@ -305,7 +308,6 @@ def company_address():
     return save_address()
 
 
-# noinspection PyUnusedLocal
 def list_all_address():
     """
     This function returns all company names in the `database`

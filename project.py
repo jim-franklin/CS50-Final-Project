@@ -17,7 +17,7 @@ def main():
     lists = ["list", "ls"]
 
     if (
-        3 < len(sys.argv) < 5
+        3 < len(sys.argv) < 6
         and sys.argv[1].lower() in letters
         and sys.argv[2].lower() == "to"
     ):
@@ -91,16 +91,16 @@ def create_document():
     p_title.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
     # Add body of letter
-    body_body = body()
-    # body of committee letter
+    # committee letter
     if sys.argv[3].lower() == "committee":
-        string = body_body.split("\n")
+        string = body().split("\n")
         for line in string:
             p_body = doc.add_paragraph(line)
             p_body.paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
-    # body of any other letter
+
+    # any other letter
     else:
-        p_body = doc.add_paragraph(body_body)
+        p_body = doc.add_paragraph(body())
         p_body.paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
 
     # Add valediction
@@ -113,7 +113,7 @@ def create_document():
     p_writer_name.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
 
     # Save Document
-    document_of_name = f"{sys.argv[1]}_{sys.argv[2]}_{sys.argv[3]}.docx"
+    document_of_name = f"{sys.argv[1]}_{sys.argv[2]}_{'_'.join(sys.argv[3:])}.docx"
     doc.save(document_of_name)
     print("\n\t" + document_of_name + " has been created...\n")
 
@@ -262,23 +262,21 @@ def save_address():
             if not name_of_company:
                 raise ValueError("Name of company cannot be empty. Please try again.")
         else:
-            name_of_company = " ".join(sys.argv[3:])
+            name_of_company = " ".join(sys.argv[3:]).lower()
         address_of_company = (
             input(
-                "\nAddress of company (e.g. The Managing Director, Volta River Authority, "
-                "Electro-Volta House, "
-                "Accra)"
-                "\nEnter address: "
+                "\nAddress of company (e.g. The Managing Director, Volta River Authority, Electro-Volta House, "
+                "Accra)\nEnter address: "
             )
             .title()
             .strip()
         )
         if not address_of_company:
-            address_of_company = paste()
+            address_of_company = paste().strip()
             sfile[name_of_company] = address_of_company.replace("\r", "")
         else:
             sfile[name_of_company] = address_of_company.replace(", ", "\n")
-            address_of_company = sfile[name_of_company]
+        address_of_company = sfile[name_of_company]
     print(f"\nAddress of {name_of_company} has been saved.")
     return address_of_company
 

@@ -113,9 +113,14 @@ def create_document():
     p_writer_name.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
 
     # Save Document
-    document_of_name = f"{sys.argv[1]}_{sys.argv[2]}_{'_'.join(sys.argv[3:])}.docx"
-    doc.save(document_of_name)
-    print("\n\t" + document_of_name + " has been created...\n")
+    number = 1
+    while True:
+        doc_name = f"{sys.argv[1]}_{sys.argv[2]}_{'_'.join(sys.argv[3:])}_{str(number)}.docx"
+        if not os.path.exists(doc_name):
+            break
+        number += 1
+    doc.save(doc_name)
+    print("\n\t" + doc_name + " has been created...\n")
 
 
 def date_doc():

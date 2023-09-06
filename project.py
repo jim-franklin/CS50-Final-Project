@@ -294,6 +294,7 @@ def company_address():
     return save_address()
 
 
+# noinspection PyUnusedLocal
 def list_all_address():
     """
     This function returns all company names in the `database`

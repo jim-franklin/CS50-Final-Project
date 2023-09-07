@@ -2,7 +2,7 @@
 
 #### Video Demo:  <URL HERE>
 #### Description:
-This Python script creates MS Word templates for formal letters using a command-line interface. It provides options to create letters for companies and committees, as well as the ability to save and list addresses.
+This Python script creates MS Word templates for formal letters using a command-line interface.<br>It provides options to create letters for companies and the Committee, as well as the ability to save and list addresses.
 
 ---
 

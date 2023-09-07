@@ -1,5 +1,6 @@
 import os
 import shelve
+import subprocess
 import sys
 from datetime import date
 
@@ -129,6 +130,9 @@ def create_document():
 
     doc.save(doc_name)
     print("\n\t" + doc_name + " has been created...\n")
+
+    # Open document
+    subprocess.Popen(["start", doc_name], shell=True)
 
 
 def date_doc():

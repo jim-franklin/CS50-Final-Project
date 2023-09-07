@@ -12,7 +12,6 @@ from docx.shared import Inches
 
 
 def main():
-
     os.chdir(r"C:\Users\HP\PycharmProjects\CS50-Final-Project")
     letters = ["letter", "let"]
     lists = ["list", "ls"]
@@ -33,19 +32,15 @@ def main():
     else:
         sys.exit(
             """\
-    project.py - Create a template for a Word document to write formal letters 
+    project.py - Create MS Word templates for formal letters 
     
-    Usage:  python project.py letter to <company>
-            >> Create a template for a Word document with the <company> address.
+    Usage:  python project.py letter to <company name> - Create a template with the address of the specified company.
             
-            python project.py letter to committee
-            >> Create a template for a Word document with the general address of the Committee.
+            python project.py letter to committee - Create a template with the general address of the Committee.
             
-            python project.py save
-            >> Deliberately store the address of a specific company in the database
+            python project.py save - Store the address of a specific company in the database
             
-            python project.py list
-            >> List all company names in the database in alphabetical order
+            python project.py list - List all company names in the database in alphabetical order
             """
         )
 

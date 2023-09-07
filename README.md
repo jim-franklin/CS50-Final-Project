@@ -2,7 +2,7 @@
 
 #### Video Demo:  <URL HERE>
 #### Description:
-This Python scrip creates MS Word templates for formal letters using a command-line interface. It provides options to create letters for companies and the Local Content Committee, as well as the ability to save company names and their respective addresses in a database (in this case, a shelf file). The script can also list company names found in the database or shelf file in alphabetical order.
+This Python script creates MS Word templates for formal letters using a command-line interface. It provides options to create letters for companies and a Committee, as well as the ability to save company names and their respective addresses in a database (in this case, a shelf file). The script can also list company names found in the database or shelf file in alphabetical order.
 
 ---
 ## Usage

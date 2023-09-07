@@ -5,16 +5,12 @@
 This Python script creates MS Word templates for formal letters using a command-line interface. It provides options to create letters for companies and a Committee, as well as the ability to save company names and their respective addresses in a database using Python's shelve module. The script can also list company names found in the database in alphabetical order.
 
 
-When you use the Python's shelve module on Windows, you might notice three files with different extensions in your directory. These files correspond to different components of the shelve mechanism which are:
+When you use the Python's shelve module on Windows, you might notice three files with different extensions in your directory. The following files correspond to different components of the shelve mechanism:
 
 1. `data_base.bak:`
 This file is a backup of the shelf database. It provides a safety net in case the main database file (data_base.dat) gets corrupted or damaged during write operations. If an error occurs while writing to the shelf, Python can attempt to restore it using this backup.
-
-
 2. `data_base.dat:`
 This file contains the actual serialized objects. It's the main data file of the shelf. All the objects that you've stored in the shelf are stored here in a serialized format.
-
-
 3. `data_base.dir:`
 This file is used to index the keys and their corresponding positions in the data_base.dat file. It allows for efficient lookup and retrieval of objects based on their keys.
 
@@ -24,7 +20,7 @@ This file is used to index the keys and their corresponding positions in the dat
 
 - `python project.py letter to <company name>`
   - This creates a template for a Word document with the address of the specified company.
-  - If the specified company is not in the database (a shelf file in this case), the user will be required to input the address of that company to be stored in the database.
+  - If the specified company is not in the database, the user will be required to input the address of that company to be stored in the database.
 
 
 - `python project.py letter to committee`

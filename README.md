@@ -5,7 +5,7 @@
 This Python script creates MS Word templates for formal letters using a command-line interface. It provides options to create letters for companies and a Committee, as well as the ability to save company names and their respective addresses in a database using Python's shelve module. The script can also list company names found in the database in alphabetical order.
 
 
-When you use the Python's shelve module on windows, you might notice three files with different extensions in your directory. These files correspond to different components of the shelve mechanism which are:
+When you use the Python's shelve module on Windows, you might notice three files with different extensions in your directory. These files correspond to different components of the shelve mechanism which are:
 
 1. `data_base.bak:`
 This file is a backup of the shelf database. It provides a safety net in case the main database file (data_base.dat) gets corrupted or damaged during write operations. If an error occurs while writing to the shelf, Python can attempt to restore it using this backup.

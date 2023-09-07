@@ -2,12 +2,10 @@
 
 #### Video Demo:  <URL HERE>
 #### Description:
-This Python script creates MS Word templates for formal letters using a command-line interface. It provides options to create letters for companies and the Committee, as well as the ability to save and list addresses.
+This Python scrip creates MS Word templates for formal letters using a command-line interface. It provides options to create letters for companies and the Local Content Committee, as well as the ability to save company names and their respective addresses in a database (in this case, a shelf file). The script can also list company names found in the database or shelf file in alphabetical order.
 
 ---
-
 ## Usage
-
 ### To create a letter:
 
 - `python project.py letter to <company name>`
@@ -29,7 +27,6 @@ This Python script creates MS Word templates for formal letters using a command-
   - This lists all company names in the database in alphabetical order.
 
 ---
-
 ## Instructions
 
 1. Make sure Python is installed on your system.
@@ -48,7 +45,6 @@ This Python script creates MS Word templates for formal letters using a command-
 ---
 
 ## Dependencies
-
 This project relies on the following Python libraries:
 
 - [python-docx](https://python-docx.readthedocs.io/en/latest/)
@@ -62,13 +58,15 @@ pip install pyperclip python-docx
 ```
 
 ---
-
 ## License
-
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
+## About CS50P
+This course is an introduction to programming using Python, covering essential skills in coding, testing, and debugging. It's designed for students, whether with or without prior programming experience, who specifically want to learn Python.
+[Learn more about CS50's Introduction to Programming with Python.](https://www.edx.org/learn/python/harvard-university-cs50-s-introduction-to-programming-with-python)
 
+---
 ## Author
-
-[Franklin Aryee](https://github.com/jim-franklin)
+[Github](https://github.com/jim-franklin)
+<br>[LinkedIn](https://www.linkedin.com/in/franklin-aryee-118729183/)

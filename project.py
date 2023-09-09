@@ -267,7 +267,7 @@ def save_address():
 
 def list_all_address():
     """
-    This function returns all company names in the `database`
+    This function returns a list of all company names in the `database`
 
     :return: # . Company name
     :rtype: str

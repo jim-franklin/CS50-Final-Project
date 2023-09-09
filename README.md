@@ -2,10 +2,10 @@
 
 #### Video Demo:  <URL HERE>
 #### Description:
-This Python script creates MS Word templates for formal letters using a command-line interface. It provides options to create letters for companies and a Committee, as well as the ability to save company names and their respective addresses in a database using Python's shelve module. The program can also list company names found in the database in alphabetical order.
+This Python script creates MS Word templates for formal letters using a command-line interface. It provides options to write letters to companies, as well as the ability to save company names and their respective addresses in a database using Python's shelve module. The program can also list company names found in the database in alphabetical order.
 
 
-When you use the Python's shelve module on Windows, you might notice three files with different extensions in your directory. The following files correspond to different components of the shelve mechanism:
+When you use the Python's shelve module on Windows, you will notice three files with different extensions in your directory. The following files correspond to different components of the shelve mechanism:
 
 1. `data_base.bak:`
 This file is a backup of the shelf database. It provides a safety net in case the main database file (data_base.dat) gets corrupted or damaged during write operations. If an error occurs while writing to the shelf, Python can attempt to restore it using this backup.
@@ -21,10 +21,6 @@ This file is used to index the keys and their corresponding positions in the dat
 - `python project.py letter to <company name>`
   - This creates a template for a Word document with the address of the specified company.
   - If the specified company is not in the database, the user will be required to input the address of that company to be stored in the database.
-
-
-- `python project.py letter to committee`
-  - This creates a template for a Word document with the general address of the Committee.
 
 ### To save an address:
 

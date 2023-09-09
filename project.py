@@ -255,7 +255,7 @@ def save_address():
             .strip()
         )
         if not address_of_company:
-            address_of_company = paste().strip()
+            address_of_company = paste().strip().title()
             sfile[name_of_company] = address_of_company.replace("\r", "")
         else:
             sfile[name_of_company] = address_of_company.replace(", ", "\n")

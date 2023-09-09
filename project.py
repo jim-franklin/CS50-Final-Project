@@ -14,8 +14,6 @@ from docx.shared import Inches
 
 def main():
     os.chdir(r"C:\Users\HP\CS50-Final-Project")
-    letters = ["letter", "let"]
-    lists = ["list", "ls"]
 
     if (
         3 < len(sys.argv) < 6

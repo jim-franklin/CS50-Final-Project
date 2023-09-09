@@ -2,7 +2,7 @@
 
 #### Video Demo:  <URL HERE>
 #### Description:
-This Python script creates MS Word templates for formal letters using a command-line interface. It provides options to write letters to companies, as well as the ability to save company names and their respective addresses in a database using Python's shelve module. The program can also list company names found in the database in alphabetical order.
+This Python script generates Docx templates for formal letters using a command-line interface. It provides options to write letters to companies, as well as the ability to save company names and their respective addresses in a database using Python's shelve module. The program can also list company names found in the database in alphabetical order.
 
 
 When you use the Python's shelve module on Windows, you will notice three files with different extensions in your directory. The following files correspond to different components of the shelve mechanism:
@@ -16,10 +16,10 @@ This file is used to index the keys and their corresponding positions in the dat
 
 ---
 ## Usage
-### To create a letter:
+### To generate template for letter:
 
 - `python project.py letter to <company name>`
-  - This creates a template for a Word document with the address of the specified company.
+  - This generates a Docx template with the address of the specified company.
   - If the specified company is not in the database, the user will be required to input the address of that company to be stored in the database.
 
 ### To save an address:
@@ -44,7 +44,7 @@ This file is used to index the keys and their corresponding positions in the dat
    cd /path/to/CS50-Final-Project
    ```
 
-4. Follow the usage examples provided above to create letters.
+4. Follow the usage examples provided above to generate templates for letters.
 
 5. You can customize the templates by modifying the functions in the project.py script.
 

@@ -35,8 +35,6 @@ def main():
     
     Usage:  python project.py letter to <company name> - Create a template with the address of the specified company.
             
-            python project.py letter to committee - Create a template with the general address of the Committee.
-            
             python project.py save - Store the address of a specific company in the database
             
             python project.py list - List all company names in the database in alphabetical order
@@ -79,14 +77,13 @@ def create_document():
     p_date_doc.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
 
     # Add Address
-    p_address = doc.add_paragraph(address())
+    p_address = doc.add_paragraph(company_address())
     p_address.runs[0].bold = True
     p_address.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
 
-    # Add Greeting or not if the letter is to the committee
-    if sys.argv[3].lower() != "committee":
-        para_greet = doc.add_paragraph(greeting())
-        para_greet.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
+    # Add Greeting or salutation
+    para_greet = doc.add_paragraph(greeting())
+    para_greet.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
 
     # Add Title
     p_title = doc.add_paragraph(title())
@@ -95,17 +92,8 @@ def create_document():
     p_title.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
     # Add body of letter
-    # for committee
-    if sys.argv[3].lower() == "committee":
-        string = body().split("\n")
-        for line in string:
-            p_body = doc.add_paragraph(line)
-            p_body.paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
-
-    # for any other letter
-    else:
-        p_body = doc.add_paragraph(body())
-        p_body.paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
+    p_body = doc.add_paragraph(body())
+    p_body.paragraph_format.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
 
     # Add valediction
     p_valediction = doc.add_paragraph(valediction())
@@ -133,6 +121,27 @@ def create_document():
     subprocess.Popen(["start", doc_name], shell=True)
 
 
+def draft():
+    """
+    This function returns the current date of letter
+
+    :return: A sting of the date of letter
+    :rtype: str
+    """
+    return "DRAFT"
+
+
+def reference():
+    """
+    This function returns the standard reference format when writing letters to companies
+
+    :return: A sting of the reference format of the letter
+    :rtype: str
+    """
+    ref_year = str(date.today().year)[2:]
+    return "EC/LCLP/EMO/" + ref_year + "/0.."
+
+
 def date_doc():
     """
     This function returns the current date of letter
@@ -143,44 +152,24 @@ def date_doc():
     return date.today().strftime("%B %#d, %Y")
 
 
-def reference():
+def company_address():
     """
-    This function returns the standard reference format for the committee or a company
+    This function returns the address of the company passed in the command-line `(sys.argv[3])`
+    or calls the `save_address` if the company name cannot be found in the `database`
 
-    :return: A sting of the reference format of the letter
     :rtype: str
     """
-    ref_year = str(date.today().year)[2:]
-    if sys.argv[3].lower() == "committee":
-        return "REF: EC/LCLP/COM/" + ref_year + "/0.."
+    with shelve.open("data_base") as sfile:
+        company_name = " ".join(sys.argv[3:]).lower()
 
-    ref_year = str(date.today().year)[2:]
-    return "EC/LCLP/EMO/" + ref_year + "/0.."
+        if company_name in sfile:
+            return sfile[company_name]
 
-
-def address():
-    """
-    This function returns the standard address for the committee
-    or the specific address of a company by calling `company_address()`
-
-    :return: A string of the address of the letter
-    :rtype: str
-    """
-    if sys.argv[3].lower() == "committee":
-        return (
-            "CONFIDENTIAL\n\n"
-            "TO THE COMMITTEE MEMBERS\n"
-            "OF THE LOCAL CONTENT AND LOCAL PARTICIPATION\nCOMMITTEE"
-        )
-    return company_address()
-
-
-def draft():
-    """
-    :return: A string containing `DRAFT`
-    :rtype: str
-    """
-    return "DRAFT"
+    print(
+        f"Address of {company_name} cannot be found. "
+        f"Thus, follow the next steps to add the address to the database..."
+    )
+    return save_address()
 
 
 def greeting():
@@ -193,16 +182,11 @@ def greeting():
 
 def title():
     """
-    This function returns standard title for committee meetings
-    or `ENTER TITLE HERE` which indicates where the yet to be determined title will be typed.
+    This function returns `ENTER TITLE HERE` which indicates where the yet to be determined title will be typed.
 
     :return: A string of the title of the letter
     :rtype: str
     """
-    if sys.argv[3].lower() == "committee":
-        return (
-            "INVITATION TO MEETING FOR LOCAL CONTENT AND\nLOCAL PARTICIPATION COMMITTEE"
-        )
     return "ENTER TITLE HERE:"
 
 
@@ -214,22 +198,6 @@ def body():
     :return: A sting of the body of the letter
     :rtype: str
     """
-    if sys.argv[3].lower() == "committee":
-        date_of_meeting = (
-            input(
-                "Date of the meeting "
-                "(e.g. Tuesday, March  7, 2023 and Wednesday, March 8 2023): "
-            )
-            .title()
-            .strip()
-        )
-        time_of_meeting = input("Time of the meeting (e.g. 10:00 am): ").lower().strip()
-        return (
-            f"Members are kindly invited to a virtual meeting of the "
-            f"Local Content and Local Participation Committee on "
-            f"{date_of_meeting}, at {time_of_meeting}."
-            f"\nThe agenda for the meeting is as follows:\n\t1. "
-        )
     return "..."
 
 
@@ -254,8 +222,8 @@ def writer_name():
 
 def save_address():
     """
-    This function returns ask the `name` and `address` of the company when called.
-    See `company_address` for further clarification.
+    This function asks the user the `name` and `address` of the company when called.
+    See `company_address` for further details.
 
     If the input of `name_of_company` is empty, the program will raise an error
     (You must type the name of company)
@@ -295,26 +263,6 @@ def save_address():
 
     print(f"\nAddress of {name_of_company} has been saved.")
     return address_of_company
-
-
-def company_address():
-    """
-    This function returns the address of the company passed in the command-line `(sys.argv[3])`
-    or calls the `save_address` if the company name cannot be found in the `database`
-
-    :rtype: str
-    """
-    with shelve.open("data_base") as sfile:
-        company_name = " ".join(sys.argv[3:]).lower()
-
-        if company_name in sfile:
-            return sfile[company_name]
-
-    print(
-        f"Address of {company_name} cannot be found. "
-        f"Thus, follow the next steps to add the address to the database..."
-    )
-    return save_address()
 
 
 def list_all_address():

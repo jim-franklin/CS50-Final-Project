@@ -17,7 +17,7 @@ def main():
 
     if (
         3 < len(sys.argv) < 6
-        and sys.argv[1].lower() in letters
+        and sys.argv[1].lower() == "letter"
         and sys.argv[2].lower() == "to"
     ):
         create_document()
@@ -25,7 +25,7 @@ def main():
     elif len(sys.argv) == 2 and sys.argv[1].lower() == "save":
         print("\n", save_address(), "\n", sep="")
 
-    elif len(sys.argv) == 2 and sys.argv[1].lower() in lists:
+    elif len(sys.argv) == 2 and sys.argv[1].lower() == "list":
         list_all_address()
 
     else:

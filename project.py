@@ -123,9 +123,7 @@ def create_document():
 
 def draft():
     """
-    This function returns the current date of letter
-
-    :return: A sting of the date of letter
+    :return: A string containing `DRAFT`
     :rtype: str
     """
     return "DRAFT"

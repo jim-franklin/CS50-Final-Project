@@ -41,7 +41,7 @@ This file is used to index the keys and their corresponding positions in the dat
 
 3. Open the terminal and navigate to the project directory:
    ```bash
-   cd /path/to/project_folder
+   cd /path/to/CS50-Final-Project
    ```
 
 4. Follow the usage examples provided above to create letters.

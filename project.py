@@ -13,7 +13,7 @@ from docx.shared import Inches
 
 
 def main():
-    os.chdir(r"C:\Users\HP\PycharmProjects\CS50-Final-Project")
+    os.chdir(r"C:\Users\HP\CS50-Final-Project")
     letters = ["letter", "let"]
     lists = ["list", "ls"]
 

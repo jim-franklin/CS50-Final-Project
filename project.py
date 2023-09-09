@@ -192,8 +192,7 @@ def title():
 
 def body():
     """
-    This function asks for and returns the `date` and `time` of meeting
-    if letter is to the committee or returns `...` if letters to companies
+    This function returns `...` indicating where the body of the letter should be typed
 
     :return: A sting of the body of the letter
     :rtype: str

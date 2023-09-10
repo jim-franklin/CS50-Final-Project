@@ -13,7 +13,7 @@ from docx.shared import Inches
 
 
 def main():
-    os.chdir(r"C:\Users\HP\CS50-Final-Project")
+    # os.chdir(r"C:\Users\Franklin\CS50-Final-Project")
 
     if (
         3 < len(sys.argv) < 6

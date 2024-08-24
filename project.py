@@ -117,12 +117,15 @@ def create_document():
     doc.save(doc_name)
     print("\n\t" + doc_name + " has been created...\n")
     
+    file_path = os.path.join("/Users/franklinaryee/CS50-Final-Project", doc_name)
+
+    
     # Path to Microsoft Word application
     word_app_path = "/Applications/Microsoft Word.app"
     
 
     # Open document
-    subprocess.run(["open", "-a", word_app_path, "/Users/franklinaryee/CS50-Final-Project/" + doc_name], check=True)
+    subprocess.run(["open", "-a", word_app_path, file_path], check=True)
 
 
 def draft():
@@ -151,7 +154,7 @@ def date_doc():
     :return: A sting of the date of letter
     :rtype: str
     """
-    return date.today().strftime("%B %#d, %Y")
+    return date.today().strftime("%B %d, %Y")
 
 
 def company_address():

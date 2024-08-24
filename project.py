@@ -118,7 +118,7 @@ def create_document():
     print("\n\t" + doc_name + " has been created...\n")
 
     # Open document
-    subprocess.Popen(["start", doc_name], shell=True)
+    subprocess.run(["open", doc_name], shell=True)
 
 
 def draft():

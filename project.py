@@ -116,9 +116,13 @@ def create_document():
 
     doc.save(doc_name)
     print("\n\t" + doc_name + " has been created...\n")
+    
+    # Path to Microsoft Word application
+    word_app_path = "/Applications/Microsoft Word.app"
+    
 
     # Open document
-    subprocess.run(["open", doc_name], shell=True)
+    subprocess.run(["open", "-a", word_app_path, "/Users/franklinaryee/CS50-Final-Project/" + doc_name], check=True)
 
 
 def draft():
